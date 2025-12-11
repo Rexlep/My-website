@@ -156,20 +156,14 @@ elif section == 'Projects':
 elif section == 'Contact':
     st.header('Get in touch')
 
-    col1,  col2 = st.columns(2)
+    with st.form('Contact form'):
+        name = st.text_input('Name')
+        email = st.text_input('Email')
 
-    with col1:
-        email = st.text_input('email')
-        phone = st.text_input('phone')
+        message = st.text_area('Message')
+        submitted = st.form_submit_button('Submit')
 
-
-    with col2:
-        linkedin = st.text_input('Linkedin url')
-        discord = st.text_input('Discord')
-
-    message = st.text_area('message')
-
-    if st.button('Send'):
+    if submitted:
         st.success("Thanks for reaching out, i'll be in contact soon")
 
         msg = EmailMessage()
@@ -179,9 +173,9 @@ elif section == 'Contact':
         msg['To'] = 'amirmahdi.gdrzi@gmail.com'
 
         msg.add_alternative(f"""
-            <h1>Hello from {email}</h1>
-            <p><b>Phone:</b> {phone}</p>
-            <p>{message}</p>
+            <h1>Hello from {name}</h1>
+            <p><b>Contact this Email:</b> {email}</p>
+            <p>This is the message\n{message}</p>
         """, subtype="html")
 
         with smtplib.SMTP_SSL(smtp_server, port) as server:
