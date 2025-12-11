@@ -163,24 +163,19 @@ elif section == 'Contact':
         submitted = st.form_submit_button("Submit",  on_click=None)
 
     if submitted:
-        try:
-            # ارسال ایمیل
-            msg = EmailMessage()
-            msg['Subject'] = 'Contact from website'
-            msg['From'] = sender_email
-            msg['To'] = 'amirmahdi.gdrzi12@gmail.com'
+        msg = EmailMessage()
+        msg['Subject'] = 'Contact from website'
+        msg['From'] = sender_email
+        msg['To'] = 'amirmahdi.gdrzi12@gmail.com'
 
-            msg.add_alternative(f"""
-                <h1>Hello from {st.session_state.name}</h1>
-                <p><b>Contact Email:</b> {st.session_state.email}</p>
-                <p>This is the message:<br>{st.session_state.message}</p>
-            """, subtype="html")
+        msg.add_alternative(f"""
+            <h1>Hello from {st.session_state.name}</h1>
+            <p><b>Contact Email:</b> {st.session_state.email}</p>
+            <p>This is the message:<br>{st.session_state.message}</p>
+        """, subtype="html")
 
-            with smtplib.SMTP_SSL(smtp_server, port) as server:
-                server.login(sender_email, password)
-                server.send_message(msg)
+        with smtplib.SMTP_SSL(smtp_server, port) as server:
+            server.login(sender_email, password)
+            server.send_message(msg)
 
-            st.success("Thanks for reaching out, I'll be in contact soon!")
-
-        except Exception as e:
-            st.error(f"An error occurred while sending the email: {e}")
+        st.success("Thanks for reaching out, I'll be in contact soon!")
