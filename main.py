@@ -166,6 +166,10 @@ elif section == 'Contact':
     if submitted:
         st.success("Thanks for reaching out, i'll be in contact soon")
 
+        st.session_state.name = ""
+        st.session_state.email = ""
+        st.session_state.message = ""
+
         msg = EmailMessage()
         msg['subject'] = 'Contact from website'
 
@@ -182,6 +186,3 @@ elif section == 'Contact':
             server.login(sender_email, password)
             server.send_message(msg)
 
-        st.session_state.name = ""
-        st.session_state.email = ""
-        st.session_state.message = ""
