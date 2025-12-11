@@ -164,7 +164,7 @@ elif section == 'Contact':
         submitted = st.form_submit_button('Submit')
 
     if submitted:
-        st.success("Thanks for reaching out, i'll be in contact soon")
+        st.success("Thanks for reaching out, I'll be in contact soon")
 
         st.session_state.name = ""
         st.session_state.email = ""
