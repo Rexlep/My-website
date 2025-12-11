@@ -156,33 +156,42 @@ elif section == 'Projects':
 elif section == 'Contact':
     st.header('Get in touch')
 
-    with st.form('Contact form'):
-        name = st.text_input('Name', key='name')
-        email = st.text_input('Email', key='email')
-        message = st.text_area('Message', key='message')
+    for key in ["name", "email", "message"]:
+        if key not in st.session_state:
+            st.session_state[key] = ""
 
-        submitted = st.form_submit_button('Submit')
+    st.header('Get in touch')
+
+    with st.form("Contact form"):
+        name = st.text_input("Name", key="name")
+        email = st.text_input("Email", key="email")
+        message = st.text_area("Message", key="message")
+        submitted = st.form_submit_button("Submit")
 
     if submitted:
-        st.success("Thanks for reaching out, I'll be in contact soon")
+        try:
+            # ارسال ایمیل
+            msg = EmailMessage()
+            msg['Subject'] = 'Contact from website'
+            msg['From'] = sender_email
+            msg['To'] = 'amirmahdi.gdrzi12@gmail.com'
 
-        st.session_state.name = ""
-        st.session_state.email = ""
-        st.session_state.message = ""
+            msg.add_alternative(f"""
+                <h1>Hello from {st.session_state.name}</h1>
+                <p><b>Contact Email:</b> {st.session_state.email}</p>
+                <p>This is the message:<br>{st.session_state.message}</p>
+            """, subtype="html")
 
-        msg = EmailMessage()
-        msg['subject'] = 'Contact from website'
+            with smtplib.SMTP_SSL(smtp_server, port) as server:
+                server.login(sender_email, password)
+                server.send_message(msg)
 
-        msg['From'] = sender_email
-        msg['To'] = 'amirmahdi.gdrzi12@gmail.com'
+            st.success("Thanks for reaching out, I'll be in contact soon!")
 
-        msg.add_alternative(f"""
-            <h1>Hello from {name}</h1>
-            <p><b>Contact this Email:</b> {email}</p>
-            <p>This is the message\n{message}</p>
-        """, subtype="html")
+            # پاک کردن ورودی‌ها بعد از ارسال ایمیل
+            st.session_state.name = ""
+            st.session_state.email = ""
+            st.session_state.message = ""
 
-        with smtplib.SMTP_SSL(smtp_server, port) as server:
-            server.login(sender_email, password)
-            server.send_message(msg)
-
+        except Exception as e:
+            st.error(f"An error occurred while sending the email: {e}")
