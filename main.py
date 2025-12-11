@@ -4,11 +4,6 @@ from pathlib import Path
 import smtplib
 from email.message import EmailMessage
 
-def clear_form():
-    st.session_state.name = ""
-    st.session_state.email = ""
-    st.session_state.message = ""
-
 smtp_server = 'smtp.gmail.com'
 port = 465
 sender_email = st.secrets["EMAIL_ADDRESS"]
@@ -159,10 +154,6 @@ elif section == 'Projects':
 
 # Contact section
 elif section == 'Contact':
-    for key in ["name", "email", "message"]:
-        if key not in st.session_state:
-            st.session_state[key] = ""
-
     st.header('Get in touch')
 
     with st.form("Contact form"):
@@ -190,8 +181,6 @@ elif section == 'Contact':
                 server.send_message(msg)
 
             st.success("Thanks for reaching out, I'll be in contact soon!")
-
-            clear_form()
 
         except Exception as e:
             st.error(f"An error occurred while sending the email: {e}")
