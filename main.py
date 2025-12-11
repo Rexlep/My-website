@@ -157,10 +157,10 @@ elif section == 'Contact':
     st.header('Get in touch')
 
     with st.form('Contact form'):
-        name = st.text_input('Name')
-        email = st.text_input('Email')
+        name = st.text_input('Name', key='name')
+        email = st.text_input('Email', key='email')
+        message = st.text_area('Message', key='message')
 
-        message = st.text_area('Message')
         submitted = st.form_submit_button('Submit')
 
     if submitted:
