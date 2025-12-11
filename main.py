@@ -176,7 +176,7 @@ elif section == 'Contact':
         msg['subject'] = 'Contact from website'
 
         msg['From'] = sender_email
-        msg['To'] = 'amirmahdi.gdrzi@gmail.com'
+        msg['To'] = 'amirmahdi.gdrzi12@gmail.com'
 
         msg.add_alternative(f"""
             <h1>Hello from {email}</h1>
