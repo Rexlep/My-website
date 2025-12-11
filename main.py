@@ -181,3 +181,7 @@ elif section == 'Contact':
         with smtplib.SMTP_SSL(smtp_server, port) as server:
             server.login(sender_email, password)
             server.send_message(msg)
+
+        st.session_state.name = ""
+        st.session_state.email = ""
+        st.session_state.message = ""
