@@ -26,6 +26,8 @@ skills = {
 
 col1, col2 = st.columns(2)
 
+with col1:
+    st.image('My_pic.JPG',  width=250)
 
 with col2:
     st.title('Amir Mahdi Goodarzi')
