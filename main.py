@@ -12,7 +12,7 @@ password = st.secrets["EMAIL_PASSWORD"]
 certificate_path = Path('certificate')
 
 st.sidebar.title('Navigation')
-section = st.sidebar.radio('Go to', ['Experience', 'Skills', 'Education', 'Certificates', 'Projects','Contact'])
+section = st.sidebar.radio('Go to', ['Skills', 'Education', 'Certificates', 'Projects','Contact'])
 
 skills = {
     'Python': 0.8,
@@ -50,41 +50,8 @@ with col2:
         """, unsafe_allow_html=True)
 
 
-# Experience Section
-if section == 'Experience':
-    st.header('Work Experience')
-
-    with st.expander(f'Teaching | Top learn | December 2024'):
-        st.write(f"""
-        - Build 2 courses related to Figma & UI /UX.
-        - Gain over 400 students in this platform.
-        - Figma course with over ninety videos and thirty hours of duration
-        """)
-        st.markdown("""
-        <a href='https://toplearn.com/c/6239' target='_blank'>Flex-box training by designing from a Figma file</a>\n
-        <a href='https://toplearn.com/c/6251' target='_blank'>Comprehensive Figma Training Course: From Absolute Zero to Entering the Design Job Market</a>
-        """, unsafe_allow_html=True)
-
-    with st.expander(f'Teaching | Maktabkhooneh | Jan 2025'):
-        st.write(f"""
-        - Created 2 Programming course.
-        - Gain more than 500 students.
-        - Python course with over 150 videos and more than thirty hours of duration.
-        """)
-        st.markdown("""
-        <a href='https://maktabkhooneh.org/course/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-pandas-%D9%85%D9%82%D8%AF%D9%85%D8%A7%D8%AA%DB%8C-mk12171/?v=1' target='_blank'>Basic Pandas Tutorial</a>\n
-        <a href='https://maktabkhooneh.org/course/%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-%D8%B1%D8%A7%D8%A8%D8%B7-%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%DB%8C-%D9%85%D8%AF%D8%B1%D9%86-%D8%B2%D8%A8%D8%A7%D9%86-python-mk11957/?v=1' target='_blank'>Learning to design modern user interfaces with Python</a>\n
-        <a href='https://maktabkhooneh.org/course/%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-%D8%B1%D8%A7%D8%A8%D8%B7-%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%DB%8C-%D9%85%D8%AF%D8%B1%D9%86-%D8%B2%D8%A8%D8%A7%D9%86-python-mk11957/?v=1' target='_blank'>Master class python 2026</a>
-        """, unsafe_allow_html=True)
-
-    with st.expander(f'Intern | Raman Learn | March 2023'):
-        st.write(f"""
-        - Worked as an Intern in Raman Learn for around 1 year in UI / UX here is some of the projects
-        """)
-
-
 # Skills section
-elif section == 'Skills':
+if section == 'Skills':
     st.header('Skills Overview')
     for skill, level in skills.items():
         st.write(f'{skill}  {level * 100} %')
