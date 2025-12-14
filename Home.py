@@ -1,8 +1,4 @@
 import streamlit as st
-import pandas as pd
-from pathlib import Path
-import smtplib
-from email.message import EmailMessage
 
 
 col1, col2 = st.columns(2)
