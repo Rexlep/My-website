@@ -1,5 +1,10 @@
 import streamlit as st
 
+smtp_server = 'smtp.gmail.com'
+port = 465
+sender_email = st.secrets["EMAIL_ADDRESS"]
+password = st.secrets["EMAIL_PASSWORD"]
+
 col1, col2 = st.columns(2)
 
 with col1:

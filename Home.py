@@ -4,10 +4,6 @@ from pathlib import Path
 import smtplib
 from email.message import EmailMessage
 
-smtp_server = 'smtp.gmail.com'
-port = 465
-sender_email = st.secrets["EMAIL_ADDRESS"]
-password = st.secrets["EMAIL_PASSWORD"]
 
 col1, col2 = st.columns(2)
 
