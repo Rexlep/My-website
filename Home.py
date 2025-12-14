@@ -1,14 +1,13 @@
 import streamlit as st
+import pandas as pd
+from pathlib import Path
+import smtplib
+from email.message import EmailMessage
 
-skills = {
-    'Python': 0.8,
-    'Django': 0.5,
-    'Streamlit': 0.9,
-    'UI/UX': 0.9,
-    'Figma': 0.9,
-    'Html': 0.7,
-    'Css': 0.8
-}
+smtp_server = 'smtp.gmail.com'
+port = 465
+sender_email = st.secrets["EMAIL_ADDRESS"]
+password = st.secrets["EMAIL_PASSWORD"]
 
 col1, col2 = st.columns(2)
 
@@ -35,15 +34,4 @@ with col2:
         </div>
         """, unsafe_allow_html=True)
 
-st.header('Skills Overview')
-for skill, level in skills.items():
-    st.write(f'{skill}  {level * 100} %')
-    st.progress(level)
-df_skills = pd.DataFrame({
-    'Skill': list(skills.keys()),
-     'Proficiency': list(skills.values())
-})
-
-st.divider()
-
-st.bar_chart(df_skills.set_index('Skill'))
+st.title('Wellcome my Personal website')

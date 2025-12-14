@@ -1,19 +1,4 @@
 import streamlit as st
-import pandas as pd
-from pathlib import Path
-import smtplib
-from email.message import EmailMessage
-
-smtp_server = 'smtp.gmail.com'
-port = 465
-sender_email = st.secrets["EMAIL_ADDRESS"]
-password = st.secrets["EMAIL_PASSWORD"]
-
-certificate_path = Path('certificate')
-
-st.sidebar.title('Navigation')
-section = st.sidebar.radio('Go to', ['Education', 'Certificates', 'Projects','Contact'])
-
 
 col1, col2 = st.columns(2)
 
@@ -41,68 +26,28 @@ with col2:
         """, unsafe_allow_html=True)
 
 
-# Education section
-if section == 'Education':
-    st.header('Education Experience')
-    st.write('“High school diploma in Industrial Electricity with a final GPA of 18.”')
-    st.write('"Admitted to Shahid Mohsen Mohajer University with a national rank of 90 in the Electrotechnics program"')
+st.header('Get in touch')
 
+with st.form("Contact form"):
+    name = st.text_input("Name", key="name")
+    email = st.text_input("Email", key="email")
+    message = st.text_area("Message", key="message")
+    submitted = st.form_submit_button("Submit",  on_click=None)
 
-# Degree section
-elif section == 'Certificates':
+if submitted:
+    msg = EmailMessage()
+    msg['Subject'] = 'Contact from website'
+    msg['From'] = sender_email
+    msg['To'] = 'amirmahdi.gdrzi12@gmail.com'
 
-    st.divider()
+    msg.add_alternative(f"""
+        <h1>Hello from {st.session_state.name}</h1>
+        <p><b>Contact Email:</b> {st.session_state.email}</p>
+        <p>This is the message:<br>{st.session_state.message}</p>
+    """, subtype="html")
 
-    col1, col2 = st.columns(2)
+    with smtplib.SMTP_SSL(smtp_server, port) as server:
+        server.login(sender_email, password)
+        server.send_message(msg)
 
-    with col1:
-        st.write('Python')
-        st.image(f'{certificate_path}/python.png', width=350)
-
-        st.divider()
-
-        st.write('Introduce to ai')
-        st.image(f'{certificate_path}/ai.png', width=350)
-
-    with col2:
-        st.write('Html')
-        st.image(f'{certificate_path}/html.jpg', width=350)
-
-        st.divider()
-
-        st.write('UI/UX')
-        st.image(f'{certificate_path}/uiux.jpg', width=350)
-
-
-# Projects section
-elif section == 'Projects':
-    col1,col2 = st.columns(2)
-
-
-# Contact section
-elif section == 'Contact':
-    st.header('Get in touch')
-
-    with st.form("Contact form"):
-        name = st.text_input("Name", key="name")
-        email = st.text_input("Email", key="email")
-        message = st.text_area("Message", key="message")
-        submitted = st.form_submit_button("Submit",  on_click=None)
-
-    if submitted:
-        msg = EmailMessage()
-        msg['Subject'] = 'Contact from website'
-        msg['From'] = sender_email
-        msg['To'] = 'amirmahdi.gdrzi12@gmail.com'
-
-        msg.add_alternative(f"""
-            <h1>Hello from {st.session_state.name}</h1>
-            <p><b>Contact Email:</b> {st.session_state.email}</p>
-            <p>This is the message:<br>{st.session_state.message}</p>
-        """, subtype="html")
-
-        with smtplib.SMTP_SSL(smtp_server, port) as server:
-            server.login(sender_email, password)
-            server.send_message(msg)
-
-        st.success("Thanks for reaching out, I'll be in contact soon!")
+    st.success("Thanks for reaching out, I'll be in contact soon!")

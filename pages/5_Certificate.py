@@ -1,14 +1,7 @@
 import streamlit as st
+from pathlib import Path
 
-skills = {
-    'Python': 0.8,
-    'Django': 0.5,
-    'Streamlit': 0.9,
-    'UI/UX': 0.9,
-    'Figma': 0.9,
-    'Html': 0.7,
-    'Css': 0.8
-}
+certificate_path = Path('certificate')
 
 col1, col2 = st.columns(2)
 
@@ -35,15 +28,25 @@ with col2:
         </div>
         """, unsafe_allow_html=True)
 
-st.header('Skills Overview')
-for skill, level in skills.items():
-    st.write(f'{skill}  {level * 100} %')
-    st.progress(level)
-df_skills = pd.DataFrame({
-    'Skill': list(skills.keys()),
-     'Proficiency': list(skills.values())
-})
 
 st.divider()
 
-st.bar_chart(df_skills.set_index('Skill'))
+col1, col2 = st.columns(2)
+
+with col1:
+    st.write('Python')
+    st.image(f'{certificate_path}/python.png', width=350)
+
+    st.divider()
+
+    st.write('Introduce to ai')
+    st.image(f'{certificate_path}/ai.png', width=350)
+
+with col2:
+    st.write('Html')
+    st.image(f'{certificate_path}/html.jpg', width=350)
+
+    st.divider()
+
+    st.write('UI/UX')
+    st.image(f'{certificate_path}/uiux.jpg', width=350)
