@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 skills = {
     'Python': 0.8,
